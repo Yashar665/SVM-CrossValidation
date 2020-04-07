@@ -1,9 +1,10 @@
 library(dplyr)
 library(h2o)
+library(caret)
 setwd("C:/Users/Yashar/Desktop/Data Science Bootcamp/R programming/Week 8")
 
 german_bank <- read.csv('credit.csv')
-german_bank$chas <- h2o.asfactor(german_bank$creditability)
+german_bank$creditability <- h2o.asfactor(german_bank$creditability)
 
 set.seed(1)
 id <- createDataPartition(y = german_bank$creditability, p = 0.7, list = FALSE)
@@ -40,5 +41,5 @@ automl1 <- h2o.automl(x = predictors,
                      balance_classes = TRUE,
                      seed = 123,
                      max_runtime_secs = 240,
-                     nfolds = 5
+                     nfolds = 10
 )
